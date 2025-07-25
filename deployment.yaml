@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-taxi
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: backend-taxi
+  template:
+    metadata:
+      labels:
+        app: backend-taxi
+    spec:
+      containers:
+      - name: backend-taxi
+        image: 123273454384.dkr.ecr.eu-west-3.amazonaws.com/mon-backend-taxi:latest
+        ports:
+        - containerPort: 5000
+        env:
+        - name: PGHOST
+          value: "ton-endpoint-rds"
+        - name: PGUSER
+          value: "ton_user"
+        - name: PGPASSWORD
+          value: "ton_mot_de_passe"
+        - name: PGDATABASE
+          value: "ta_base"
+        - name: PGPORT
+          value: "5432"
+        - name: NODE_ENV
+          value: "production"
+        # Ajoute ici toutes tes variables d'environnement nécessaires
